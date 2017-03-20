@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "viewport.h"
 
 class MainWindow : public QMainWindow
 {
@@ -10,6 +11,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+private:
+    ViewPort* mainViewport;
 };
 
 #endif // MAINWINDOW_H

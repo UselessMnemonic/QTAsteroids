@@ -13,6 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    viewport.cpp \
+    ship.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    viewport.h \
+    ship.h
