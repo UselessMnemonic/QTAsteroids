@@ -14,6 +14,12 @@ public:
 
 private:
     ViewPort* mainViewport;
+    QGraphicsView* view;
+    const int WIDTH = 500;
+    const int HEIGHT = 500;
+
+private slots:
+    void startGame();
 };
 
 #endif // MAINWINDOW_H
