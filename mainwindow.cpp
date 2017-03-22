@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "viewport.h"
 #include "ship.h"
+#include "globals.h"
 #include <QGraphicsView>
 #include <QMenuBar>
 #include <QMenu>
@@ -16,21 +17,30 @@ MainWindow::MainWindow(QWidget *parent)
     view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     view->setFrameStyle(0);
     setCentralWidget(view);
-    setFixedSize(QSize(WIDTH+1, HEIGHT+22));
+
+    //make window fixed size
+    setFixedSize(WIDTH + 1, HEIGHT + 28);
+
     //create game menu
     QMenu* gameMenu = menuBar()->addMenu("&Game");
 
     //create open and new actions
-    gameMenu->addAction("&Close", this, SLOT(close()));
     gameMenu->addAction("&Open", this, SLOT(startGame()));
+    gameMenu->addAction("&Close", this, SLOT(close()));
+
+
+    //init vars
+    gameStarted = false;
 
 }
-//set up canvas here
+
 MainWindow::~MainWindow()
 {
 }
 
 void MainWindow::startGame()
 {
-    mainViewport->addItem(new Ship( WIDTH/2 - 1 , HEIGHT/2 - 1 ));
+    //avoid adding extra ships if the game has started
+    if(!gameStarted)
+        mainViewport->addItem(new Ship( WIDTH/2, HEIGHT/2 - 15));
 }

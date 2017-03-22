@@ -15,6 +15,7 @@ public:
     { return QRectF(-15, 0, 30, 30 ); }           // implement virtual boundingRect
 
 private:
+  //defines the ship's verticies
   QPoint geometry[4] = {QPoint(0, 0), QPoint(15, 30), QPoint(0, 24), QPoint(-15, 30)};
 };
 

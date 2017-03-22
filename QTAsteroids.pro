@@ -19,4 +19,5 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     viewport.h \
-    ship.h
+    ship.h \
+    globals.h

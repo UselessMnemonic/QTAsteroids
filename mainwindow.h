@@ -15,8 +15,7 @@ public:
 private:
     ViewPort* mainViewport;
     QGraphicsView* view;
-    const int WIDTH = 500;
-    const int HEIGHT = 500;
+    bool gameStarted;
 
 private slots:
     void startGame();
