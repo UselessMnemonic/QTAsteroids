@@ -15,9 +15,11 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     viewport.cpp \
-    ship.cpp
+    ship.cpp \
+    gameobject.cpp
 
 HEADERS  += mainwindow.h \
     viewport.h \
     ship.h \
-    globals.h
+    globals.h \
+    gameobject.h
