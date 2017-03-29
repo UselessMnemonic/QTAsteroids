@@ -5,20 +5,12 @@
 GameObject::GameObject(qreal x, qreal y) : QGraphicsItem()
 {
     setPos(x, y);
-    theta = 0.0;
+    rotation = 0;
     velocity = QVector2D(0,0);
-    rot = 0;
 }
 
 GameObject::GameObject() : GameObject(0,0)
 {
-}
-
-void GameObject::doGameTick()
-{
-    qreal nextX = x() + velocity.x();
-    qreal nextY = y() + velocity.y();
-    setPos(nextX, nextY);
 }
 
 void GameObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -32,6 +24,6 @@ void GameObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     if(SHOW_TRAJECTORIES)
     {
         painter->setPen( QPen(Qt::red, 1));
-        painter->drawLine(QPointF(0,0), velocity.toPointF());
+        painter->drawLine(this->boundingRect().center(), this->boundingRect().center() + velocity.toPointF());
     }
 }

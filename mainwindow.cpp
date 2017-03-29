@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
     gameMenu->addAction("&Open", this, SLOT(startGame()));
     gameMenu->addAction("&Close", this, SLOT(close()));
 
-
     //init vars
     gameStarted = false;
 
@@ -38,7 +37,6 @@ MainWindow::~MainWindow()
 {
 }
 
-MainWindow::
 
 void MainWindow::startGame()
 {

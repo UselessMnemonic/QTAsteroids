@@ -10,11 +10,10 @@ public:
     GameObject();
     GameObject(qreal, qreal);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    void doGameTick();
+
 
 protected:
-    qreal theta;
-    qreal rot;
+    int rotation;
     QVector2D velocity;
 };
 
