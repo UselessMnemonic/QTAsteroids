@@ -9,11 +9,16 @@ static double COSINES[359], SINES[359];
 
 static double degSIN(int deg)
 {
-    return SINES[deg%360];
+    if(deg < 0)
+        return -SINES[(-deg) % 360];
+    return SINES[deg % 360];
 }
 
 static double degCOS(int deg)
 {
+    if(deg < 0)
+        deg = -deg;
+
     return COSINES[deg%360];
 }
 

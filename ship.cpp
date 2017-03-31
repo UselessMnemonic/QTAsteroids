@@ -1,12 +1,17 @@
 #include "ship.h"
 #include "bullet.h"
+#include "globals.h"
 #include <QPainter>
 #include <QKeyEvent>
+#include <QDebug>
+#include <QGraphicsItem>
 
 Ship::Ship(qreal x, qreal y, ViewPort* context) : GameObject(x, y)
 {
     accelDir = 0;
+    rotDir = 0;
     parent = context;
+    qDebug("Added ship!");
 }
 
 void Ship::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -22,14 +27,45 @@ void Ship::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 void Ship::keyPressEvent(QKeyEvent *event)
 {
-  if(event->key() == Qt::Key_Space)
+   int input = event->key();
+   switch(input)
   {
-
+  case Qt::Key_Space:
+      shootBullet();
+  case Qt::Key_A:
+      rotDir++;
+  case Qt::Key_D:
+      rotDir--;
   }
+}
+
+void Ship::keyReleaseEvent(QKeyEvent *event)
+{
+  int input = event->key();
+  switch(input)
+  {
+  case Qt::Key_A:
+      rotDir--;
+  case Qt::Key_D:
+      rotDir++;
+  }
+}
+
+void Ship::updatePosition()
+{
+    rotation += rotDir*10;
+
+    QVector2D acceleration(degCOS(rotation), degSIN(rotation));
+    acceleration *= accelDir;
+
+    velocity+=acceleration;
+
+    GameObject::updatePosition();
 }
 
 void Ship::shootBullet()
 {
     Bullet* nB = new Bullet(pos(), rotation);
     parent->addItem(nB);
+    qDebug("Shot bullet!");
 }

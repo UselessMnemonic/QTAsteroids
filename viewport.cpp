@@ -1,7 +1,7 @@
 #include "viewport.h"
 #include "ship.h"
 #include "globals.h"
-#include <iostream>
+#include <QDebug>
 
 ViewPort::ViewPort() : QGraphicsScene()
 {
@@ -12,7 +12,7 @@ ViewPort::ViewPort() : QGraphicsScene()
 
     //set up timer to control game stepping
     cycleTimer = new QTimer(this);
-    connect(cycleTimer, SIGNAL(timeout()), SLOT(doGameTick()));
+    connect(cycleTimer, SIGNAL(timeout()), this, SLOT(doGameTick()));
 
   /* for(int r = 0, s = 500; r < 10; r++, s-=2)
         addRect(r, r, s, s, QPen(QColor(10*(10-r), 0, 0)), QBrush(1));
@@ -27,8 +27,12 @@ void ViewPort::addItem(GameObject* gameItem)
 
 void ViewPort::startGame()
 {
-    addItem(new Ship(WIDTH/2, HEIGHT/2, this));
-    cycleTimer->start(33);
+    Ship* ship = new Ship(WIDTH/2, HEIGHT/2, this);
+    addItem(ship);
+    QGraphicsScene::setFocusItem(ship);
+    ship->grabKeyboard();
+    cycleTimer->start(1000);
+    qDebug("Started game!");
 }
 
 void ViewPort::doGameTick()
@@ -36,7 +40,7 @@ void ViewPort::doGameTick()
     GameObject* object;
     int currSize = itemList.size();
 
-    for(int i = 0; i <= currSize - 1; i++)
+    for(int i = 0; i <= currSize - 2; i++)
     {
         object = itemList.at(i);
         object->updatePosition();
@@ -49,5 +53,12 @@ void ViewPort::doGameTick()
         }
     }
 
-    std::cout << "Did game cycle!";
+    wrapShip();
+
+    qDebug("did Game Tick!");
+}
+
+void ViewPort::wrapShip()
+{
+    itemList.at(itemList.size()-1)->updatePosition();
 }

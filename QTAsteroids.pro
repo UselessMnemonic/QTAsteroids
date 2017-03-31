@@ -15,13 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     viewport.cpp \
-    ship.cpp \
     gameobject.cpp \
-    bullet.cpp
+    bullet.cpp \
+    ship.cpp
 
 HEADERS  += mainwindow.h \
     viewport.h \
-    ship.h \
     globals.h \
     gameobject.h \
-    bullet.h
+    bullet.h \
+    ship.h

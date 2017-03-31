@@ -6,6 +6,7 @@
 
 class GameObject : public QGraphicsItem
 {
+
 public:
     GameObject();
     GameObject(qreal, qreal);

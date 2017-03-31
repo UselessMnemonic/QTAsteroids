@@ -9,6 +9,8 @@
 class ViewPort : public QGraphicsScene
 {
 
+    Q_OBJECT
+
 public:
     ViewPort();
     void startGame();
@@ -17,6 +19,7 @@ public:
 private:
     QTimer* cycleTimer;
     QVector<GameObject*> itemList;
+    void wrapShip();
 
 public slots:
     void doGameTick();

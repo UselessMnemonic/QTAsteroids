@@ -5,21 +5,21 @@
 GameObject::GameObject(qreal x, qreal y) : QGraphicsItem()
 {
     setPos(x, y);
-    rotation = 90;
+    rotation = 0;
     velocity = QVector2D(0,0);
 }
 
 GameObject::GameObject() : QGraphicsItem()
 {
     setPos(0, 0);
-    rotation = 90;
+    rotation = 0;
     velocity = QVector2D(0,0);
 }
 
 GameObject::GameObject(QPointF loc) : QGraphicsItem()
 {
     setPos(loc.x(), loc.y());
-    rotation = 90;
+    rotation = 0;
     velocity = QVector2D(0,0);
 }
 
@@ -42,5 +42,4 @@ void GameObject::updatePosition()
 {
     setRotation(rotation);
     setPos(pos() + velocity.toPointF());
-    setRotation(rotation);
 }

@@ -14,11 +14,15 @@ public:
   { return QRectF(-15, 0, 30, 30 ); }
 
   void keyPressEvent(QKeyEvent *event);
+  void keyReleaseEvent(QKeyEvent *event);
   void shootBullet();
 
+  void updatePosition();
+
 private:
-  QPoint geometry[4]; // = {QPoint(0, 0),QPoint(15, 30),QPoint(0, 24),QPoint(-15, 30)};
+  QPoint geometry[4] = {QPoint(0, 0),QPoint(15, 30),QPoint(0, 24),QPoint(-15, 30)};
   int accelDir;
+  int rotDir;
   ViewPort* parent;
 };
 
