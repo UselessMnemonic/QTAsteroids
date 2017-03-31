@@ -42,5 +42,5 @@ void MainWindow::startGame()
 {
     //avoid adding extra ships if the game has started
     if(!gameStarted)
-        mainViewport->addItem(new Ship( WIDTH/2, HEIGHT/2));
+        mainViewport->startGame();
 }

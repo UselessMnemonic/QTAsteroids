@@ -2,23 +2,24 @@
 #define SHIP_H
 
 #include "gameobject.h"
+#include "viewport.h"
+#include "bullet.h"
 
 class Ship : public GameObject
 {
 public:
-  Ship( qreal, qreal );
-  void paint( QPainter*,
-              const QStyleOptionGraphicsItem*,
-              QWidget* );
+  Ship( qreal, qreal, ViewPort* );
+  void paint( QPainter*, const QStyleOptionGraphicsItem*, QWidget* );
   QRectF boundingRect() const
   { return QRectF(-15, 0, 30, 30 ); }
 
-private:
-  //defines the ship's verticies
-  int accelDir;
-  int rot;
+  void keyPressEvent(QKeyEvent *event);
+  void shootBullet();
 
-  QPoint geometry[4] = {QPoint(0, 0), QPoint(15, 30), QPoint(0, 24), QPoint(-15, 30)};
+private:
+  QPoint geometry[4]; // = {QPoint(0, 0),QPoint(15, 30),QPoint(0, 24),QPoint(-15, 30)};
+  int accelDir;
+  ViewPort* parent;
 };
 
 #endif // SHIP_H

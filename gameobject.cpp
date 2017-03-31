@@ -5,12 +5,22 @@
 GameObject::GameObject(qreal x, qreal y) : QGraphicsItem()
 {
     setPos(x, y);
-    rotation = 0;
+    rotation = 90;
     velocity = QVector2D(0,0);
 }
 
-GameObject::GameObject() : GameObject(0,0)
+GameObject::GameObject() : QGraphicsItem()
 {
+    setPos(0, 0);
+    rotation = 90;
+    velocity = QVector2D(0,0);
+}
+
+GameObject::GameObject(QPointF loc) : QGraphicsItem()
+{
+    setPos(loc.x(), loc.y());
+    rotation = 90;
+    velocity = QVector2D(0,0);
 }
 
 void GameObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -26,4 +36,11 @@ void GameObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
         painter->setPen( QPen(Qt::red, 1));
         painter->drawLine(this->boundingRect().center(), this->boundingRect().center() + velocity.toPointF());
     }
+}
+
+void GameObject::updatePosition()
+{
+    setRotation(rotation);
+    setPos(pos() + velocity.toPointF());
+    setRotation(rotation);
 }

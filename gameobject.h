@@ -9,8 +9,9 @@ class GameObject : public QGraphicsItem
 public:
     GameObject();
     GameObject(qreal, qreal);
+    GameObject(QPointF);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
+    void updatePosition();
 
 protected:
     int rotation;
