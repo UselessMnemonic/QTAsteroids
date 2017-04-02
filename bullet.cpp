@@ -12,6 +12,8 @@ Bullet::Bullet(QPointF loc, int angle) : GameObject(loc)
 
 void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
 {
+    setRotation(rotation);
+
     painter->setPen( QPen(Qt::yellow, 1));
     painter->drawRect(QRect(0,0,2,3));
 

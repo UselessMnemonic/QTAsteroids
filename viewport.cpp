@@ -31,7 +31,7 @@ void ViewPort::startGame()
     addItem(ship);
     QGraphicsScene::setFocusItem(ship);
     ship->grabKeyboard();
-    cycleTimer->start(1000);
+    cycleTimer->start(500);
     qDebug("Started game!");
 }
 

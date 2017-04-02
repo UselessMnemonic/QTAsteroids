@@ -36,6 +36,10 @@ void Ship::keyPressEvent(QKeyEvent *event)
       rotDir++;
   case Qt::Key_D:
       rotDir--;
+  case Qt::Key_W:
+       accelDir++;
+  case Qt::Key_S:
+       accelDir--;
   }
 }
 
@@ -48,13 +52,17 @@ void Ship::keyReleaseEvent(QKeyEvent *event)
       rotDir--;
   case Qt::Key_D:
       rotDir++;
+  case Qt::Key_W:
+       accelDir--;
+  case Qt::Key_S:
+       accelDir++;
   }
 }
 
 void Ship::updatePosition()
 {
-    rotation += rotDir*10;
-
+    rotation += rotDir*30;
+    setRotation(rotation);
     QVector2D acceleration(degCOS(rotation), degSIN(rotation));
     acceleration *= accelDir;
 
