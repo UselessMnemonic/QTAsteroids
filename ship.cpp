@@ -5,24 +5,25 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QGraphicsItem>
+#include <QVector2D>
 
 Ship::Ship(qreal x, qreal y, ViewPort* context) : GameObject(x, y)
 {
     accelDir = 0;
     rotDir = 0;
     parent = context;
-    qDebug("Added ship!");
+    bulletCooldown = 0;
+    rotation = 270;
+    setRotation(rotation);
 }
 
 void Ship::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{   
+{
     painter->setPen( QPen(Qt::white, 1));
     //draws the shape of the ship
     for(int i = 1; i <= 3; i++)
         painter->drawLine(geometry[i-1],geometry[i]);
     painter->drawLine(geometry[3], geometry[0]);
-
-    GameObject::paint(painter, option, widget);
 }
 
 void Ship::keyPressEvent(QKeyEvent *event)
@@ -32,14 +33,19 @@ void Ship::keyPressEvent(QKeyEvent *event)
   {
   case Qt::Key_Space:
       shootBullet();
+       break;
   case Qt::Key_A:
-      rotDir++;
-  case Qt::Key_D:
       rotDir--;
+       break;
+  case Qt::Key_D:
+      rotDir++;
+       break;
   case Qt::Key_W:
        accelDir++;
+       break;
   case Qt::Key_S:
        accelDir--;
+       break;
   }
 }
 
@@ -49,31 +55,42 @@ void Ship::keyReleaseEvent(QKeyEvent *event)
   switch(input)
   {
   case Qt::Key_A:
-      rotDir--;
-  case Qt::Key_D:
       rotDir++;
+      break;
+  case Qt::Key_D:
+      rotDir--;
+      break;
   case Qt::Key_W:
        accelDir--;
+      break;
   case Qt::Key_S:
        accelDir++;
+      break;
   }
 }
 
-void Ship::updatePosition()
+void Ship::update()
 {
-    rotation += rotDir*30;
+    if(bulletCooldown > 0)
+        bulletCooldown--;
+
+    rotation += rotDir*5;
+
     setRotation(rotation);
-    QVector2D acceleration(degCOS(rotation), degSIN(rotation));
-    acceleration *= accelDir;
 
-    velocity+=acceleration;
+    QVector2D acceleration(degCOS(rotation) * 0.05 * accelDir, degSIN(rotation) * 0.05 * accelDir);
 
-    GameObject::updatePosition();
+    velocity += acceleration;
+
+    setPos(pos() + velocity.toPointF());
 }
 
 void Ship::shootBullet()
 {
-    Bullet* nB = new Bullet(pos(), rotation);
-    parent->addItem(nB);
-    qDebug("Shot bullet!");
+    if(bulletCooldown == 0)
+    {
+        Bullet* nB = new Bullet(pos(), rotation);
+        parent->addItem(nB);
+        bulletCooldown = 8;
+    }
 }

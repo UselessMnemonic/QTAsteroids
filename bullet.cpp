@@ -7,15 +7,13 @@
 Bullet::Bullet(QPointF loc, int angle) : GameObject(loc)
 {
     rotation = angle;
-    velocity = QVector2D(10*degCOS(rotation), 10*degSIN(rotation));
+    setRotation(rotation);
+    velocity = QVector2D(degCOS(rotation) * 8, degSIN(rotation) * 8);
 }
 
 void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
 {
-    setRotation(rotation);
-
     painter->setPen( QPen(Qt::yellow, 1));
-    painter->drawRect(QRect(0,0,2,3));
-
-    GameObject::paint(painter, options, widget);
+    painter->setBackground(QBrush(Qt::yellow));
+    painter->drawRect(QRect(-4,-2,4,2));
 }

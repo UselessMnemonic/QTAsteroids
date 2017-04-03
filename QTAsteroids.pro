@@ -17,11 +17,13 @@ SOURCES += main.cpp\
     viewport.cpp \
     gameobject.cpp \
     bullet.cpp \
-    ship.cpp
+    ship.cpp \
+    asteroid.cpp
 
 HEADERS  += mainwindow.h \
     viewport.h \
     globals.h \
     gameobject.h \
     bullet.h \
-    ship.h
+    ship.h \
+    asteroid.h

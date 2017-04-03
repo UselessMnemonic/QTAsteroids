@@ -15,10 +15,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     view = new QGraphicsView(mainViewport);
     view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     view->setFrameStyle(0);
+    view->setFixedSize(SIZE, SIZE);
     setCentralWidget(view);
 
     //make window fixed size
-    setFixedSize(WIDTH + 1, HEIGHT + 28);
+    setFixedSize(SIZE, SIZE);
 
     //create game menu
     QMenu* gameMenu = menuBar()->addMenu("&Game");

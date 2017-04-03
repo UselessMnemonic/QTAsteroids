@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include <QVector>
+#include <QImage>
 #include "gameobject.h"
 
 class ViewPort : public QGraphicsScene
@@ -20,6 +21,8 @@ private:
     QTimer* cycleTimer;
     QVector<GameObject*> itemList;
     void wrapShip();
+    void spawnAsteroid();
+    int spawnCooldown;
 
 public slots:
     void doGameTick();

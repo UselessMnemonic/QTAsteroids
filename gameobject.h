@@ -11,8 +11,7 @@ public:
     GameObject();
     GameObject(qreal, qreal);
     GameObject(QPointF);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    void updatePosition();
+    virtual void update();
 
 protected:
     int rotation;

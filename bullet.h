@@ -11,7 +11,7 @@ public:
     Bullet(QPointF, int);
     void paint( QPainter*, const QStyleOptionGraphicsItem*, QWidget* );
     QRectF boundingRect() const
-    { return QRectF(0, 0, 2, 3 ); }
+    { return QRectF(-4,-2,4,2); }
 };
 
 #endif // BULLET_H

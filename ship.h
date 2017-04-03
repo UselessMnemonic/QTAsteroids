@@ -11,18 +11,19 @@ public:
   Ship( qreal, qreal, ViewPort* );
   void paint( QPainter*, const QStyleOptionGraphicsItem*, QWidget* );
   QRectF boundingRect() const
-  { return QRectF(-15, 0, 30, 30 ); }
+  { return QRectF(-10, -10, 20, 20 ); }
 
   void keyPressEvent(QKeyEvent *event);
   void keyReleaseEvent(QKeyEvent *event);
+  void update();
+
   void shootBullet();
 
-  void updatePosition();
-
 private:
-  QPoint geometry[4] = {QPoint(0, 0),QPoint(15, 30),QPoint(0, 24),QPoint(-15, 30)};
+  QPoint geometry[4] = {QPoint(10, 0),QPoint(-10, -10),QPoint(-6, 0) ,QPoint(-10, 10)};
   int accelDir;
   int rotDir;
+  int bulletCooldown;
   ViewPort* parent;
 };
 
