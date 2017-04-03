@@ -83,22 +83,18 @@ void ViewPort::spawnAsteroid()
         if(rand()%50 == 1)
         {
             int tb, x, y;
-            srand(time(NULL));
             tb = rand() % 2;
 
-            srand(time(NULL));
             if(tb)
             {
               y = rand() % 2;
               y *= SIZE;
-              srand(time(NULL));
               x = rand() % SIZE;
             }
             else
             {
               x = rand() % 2;
               x *= SIZE;
-              srand(time(NULL));
               y = rand() % SIZE;
             }
 

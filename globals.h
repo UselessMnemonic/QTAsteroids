@@ -4,8 +4,8 @@
 
 extern int SIZE;
 extern int PADDING;
-static bool SHOW_BOUNDS = false;
-static bool SHOW_TRAJECTORIES = true;
+extern bool SHOW_BOUNDS;
+extern bool SHOW_TRAJECTORIES;
 extern float COSINES[359], SINES[359];
 
 static float degSIN(int deg)

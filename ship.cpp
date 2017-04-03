@@ -71,17 +71,23 @@ void Ship::keyReleaseEvent(QKeyEvent *event)
 
 void Ship::update()
 {
+    //cooldown before next bullet shot
     if(bulletCooldown > 0)
         bulletCooldown--;
 
+    //set and adjust the rotation of the ship
     rotation += rotDir*5;
-
+    if(rotation < 0)
+        rotation = 355;
+    else if (rotation > 360)
+        rotation = 5;
     setRotation(rotation);
 
+    //create acceleration and add to velocity
     QVector2D acceleration(degCOS(rotation) * 0.05 * accelDir, degSIN(rotation) * 0.05 * accelDir);
-
     velocity += acceleration;
 
+    //finally, set position of ship
     setPos(pos() + velocity.toPointF());
 }
 

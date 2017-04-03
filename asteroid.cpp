@@ -16,7 +16,6 @@ Asteroid::Asteroid(qreal x, qreal y) : GameObject(x, y)
 
 void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
 {
-    painter->setPen(QColor(Qt::white));
-    painter->setBackground(QBrush(Qt::white));
+    painter->setPen(QColor(Qt::red));
     painter->drawEllipse(-size/2, -size/2, size, size);
 }
