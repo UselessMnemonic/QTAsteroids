@@ -11,6 +11,7 @@ public:
     GameObject();
     GameObject(qreal, qreal);
     GameObject(QPointF);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     virtual void update();
 
 protected:

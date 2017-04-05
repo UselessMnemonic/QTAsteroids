@@ -24,6 +24,8 @@ void Ship::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     for(int i = 1; i <= 3; i++)
         painter->drawLine(geometry[i-1],geometry[i]);
     painter->drawLine(geometry[3], geometry[0]);
+
+    GameObject::paint(painter, option, widget);
 }
 
 void Ship::keyPressEvent(QKeyEvent *event)

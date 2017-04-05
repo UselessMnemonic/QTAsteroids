@@ -25,3 +25,14 @@ void GameObject::update()
     setRotation(rotation);
     setPos(pos() + velocity.toPointF());
 }
+
+void GameObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter->setPen(QPen(Qt::red));
+    painter->rotate(0);
+
+    if(SHOW_BOUNDS)
+        painter->drawRect(this->boundingRect());
+    if(SHOW_TRAJECTORIES)
+        painter->drawLine(QPointF(0,0), ((this->velocity)*2).toPointF());
+}

@@ -18,4 +18,5 @@ void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *options,
 {
     painter->setPen(QColor(Qt::red));
     painter->drawEllipse(-size/2, -size/2, size, size);
+    GameObject::paint(painter, options, widget);
 }

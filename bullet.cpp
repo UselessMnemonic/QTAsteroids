@@ -16,4 +16,6 @@ void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *options, Q
     painter->setPen( QPen(Qt::yellow, 1));
     painter->setBackground(QBrush(Qt::yellow));
     painter->drawRect(QRect(-4,-2,4,2));
+
+    GameObject::paint(painter, options, widget);
 }
