@@ -13,6 +13,9 @@
  * Group 3
  */
 
+//TODO DESC.
+//TODO Preferences
+
 float SINES[359];
 float COSINES[359];
 int SIZE = 600;
