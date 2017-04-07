@@ -16,12 +16,6 @@
 //TODO DESC.
 //TODO Preferences
 
-float SINES[359];
-float COSINES[359];
-int SIZE = 600;
-int PADDING = 5;
-bool SHOW_BOUNDS = false;
-bool SHOW_TRAJECTORIES = false;
 
 int main(int argc, char *argv[])
 {

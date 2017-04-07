@@ -7,7 +7,10 @@
 
 ViewPort::ViewPort() : QGraphicsScene()
 {
-    addLine(0,0,0,1, QPen(Qt::transparent, 1));
+   addLine(0,0,0,1, QPen(Qt::transparent, 1));
+
+    if(SHOW_BOUNDS)
+        addRect(0,0,BASE_SIZE,BASE_SIZE, QPen(Qt::blue));
 
     setBackgroundBrush(QBrush(Qt::black));
 
@@ -28,7 +31,7 @@ void ViewPort::addItem(GameObject* gameItem)
 
 void ViewPort::startGame()
 {
-    Ship* ship = new Ship(SIZE/2, SIZE/2, this);
+    Ship* ship = new Ship(BASE_SIZE/2, BASE_SIZE/2, this);
     addItem(ship);
     QGraphicsScene::setFocusItem(ship);
     ship->grabKeyboard();
@@ -47,7 +50,7 @@ void ViewPort::doGameTick()
         object = itemList.at(i);
         object->update();
 
-        if(object->pos().x() > SIZE || object->pos().x() < 0 || object->pos().y() > SIZE || object->pos().y() < 0)
+        if(object->pos().x() > BASE_SIZE || object->pos().x() < 0 || object->pos().y() > BASE_SIZE || object->pos().y() < 0)
         {
             itemList.remove(i);
             delete object;
@@ -65,15 +68,15 @@ void ViewPort::wrapShip()
     obj = itemList.at(itemList.size()-1);
     obj->update();
 
-    if(obj->x() > SIZE)
+    if(obj->x() > BASE_SIZE)
         obj->setX(0);
     else if(obj->x() < 0)
-        obj->setX(SIZE);
+        obj->setX(BASE_SIZE);
 
-    if(obj->y() > SIZE)
+    if(obj->y() > BASE_SIZE)
         obj->setY(0);
     else if(obj->y() < 0)
-        obj->setY(SIZE);
+        obj->setY(BASE_SIZE);
 }
 
 void ViewPort::spawnAsteroid()
@@ -88,14 +91,14 @@ void ViewPort::spawnAsteroid()
             if(tb)
             {
               y = rand() % 2;
-              y *= SIZE;
-              x = rand() % SIZE;
+              y *= BASE_SIZE;
+              x = rand() % BASE_SIZE;
             }
             else
             {
               x = rand() % 2;
-              x *= SIZE;
-              y = rand() % SIZE;
+              x *= BASE_SIZE;
+              y = rand() % BASE_SIZE;
             }
 
             addItem(new Asteroid(x, y));

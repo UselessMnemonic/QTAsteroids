@@ -8,8 +8,6 @@ GameObject::GameObject(qreal x, qreal y) : QGraphicsItem()
     rotation = 0;
     setRotation(rotation);
     velocity = QVector2D(0,0);
-
-
 }
 
 GameObject::GameObject() : GameObject(0,0)
@@ -28,11 +26,16 @@ void GameObject::update()
 
 void GameObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setPen(QPen(Qt::red));
-    painter->rotate(0);
+    painter->setPen(QPen(Qt::blue));
+    painter->rotate(-rotation);
 
     if(SHOW_BOUNDS)
+    {
         painter->drawRect(this->boundingRect());
+    }
+
     if(SHOW_TRAJECTORIES)
-        painter->drawLine(QPointF(0,0), ((this->velocity)*2).toPointF());
+    {
+        painter->drawLine(QPointF(0,0), (velocity*3).toPointF());
+    }
 }
