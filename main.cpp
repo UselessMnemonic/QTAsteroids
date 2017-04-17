@@ -13,7 +13,10 @@
  * Group 3
  */
 
-//TODO DESC.
+/*Entry point for QTAsteroids game
+ * Simple but well paced game of asteroids soon to have neat graphics, sounds, and user prefernces
+ */
+
 //TODO Preferences
 
 

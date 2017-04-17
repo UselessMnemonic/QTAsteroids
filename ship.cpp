@@ -7,6 +7,7 @@
 #include <QGraphicsItem>
 #include <QVector2D>
 
+//Constructor takes location, calls parent constructor, and sets ship defaults
 Ship::Ship(qreal x, qreal y, ViewPort* context) : GameObject(x, y)
 {
     accelDir = 0;
@@ -17,6 +18,7 @@ Ship::Ship(qreal x, qreal y, ViewPort* context) : GameObject(x, y)
     setRotation(rotation);
 }
 
+//draws a ship as defined by the verticies in geometry[]
 void Ship::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setPen( QPen(Qt::white, 1));
@@ -28,6 +30,8 @@ void Ship::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     GameObject::paint(painter, option, widget);
 }
 
+//takes key events
+//TODO rework input interface
 void Ship::keyPressEvent(QKeyEvent *event)
 {
    int input = event->key();
@@ -51,6 +55,7 @@ void Ship::keyPressEvent(QKeyEvent *event)
   }
 }
 
+//reacts to key releases
 void Ship::keyReleaseEvent(QKeyEvent *event)
 {
   int input = event->key();
@@ -71,6 +76,8 @@ void Ship::keyReleaseEvent(QKeyEvent *event)
   }
 }
 
+//update's ship's rotation, velocity, and position,
+// and checks wether or not a bullet may be fired on this frame
 void Ship::update()
 {
     //cooldown before next bullet shot
@@ -93,6 +100,7 @@ void Ship::update()
     setPos(pos() + velocity.toPointF());
 }
 
+//spawns bullet with ship's rotation and direction
 void Ship::shootBullet()
 {
     if(bulletCooldown == 0)

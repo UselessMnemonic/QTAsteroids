@@ -3,6 +3,7 @@
 #include "globals.h"
 #include <QPainter>
 
+//randomizes the size and velocity of the asteroid
 Asteroid::Asteroid(qreal x, qreal y) : GameObject(x, y)
 {
     size = rand() % 3 + 1;
@@ -14,6 +15,7 @@ Asteroid::Asteroid(qreal x, qreal y) : GameObject(x, y)
     setRotation(angle);
 }
 
+//draws a red circle
 void Asteroid::paint(QPainter *painter, const QStyleOptionGraphicsItem *options, QWidget *widget)
 {
     painter->setPen(QColor(Qt::red));

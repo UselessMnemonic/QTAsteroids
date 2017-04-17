@@ -5,6 +5,7 @@
 #include "time.h"
 #include <QDebug>
 
+//draws bounding rectangle and creates frame timer
 ViewPort::ViewPort() : QGraphicsScene()
 {
    addLine(0,0,0,1, QPen(Qt::transparent, 1));
@@ -23,12 +24,14 @@ ViewPort::ViewPort() : QGraphicsScene()
         */
 }
 
+//adds a GameObject into the scene and object list
 void ViewPort::addItem(GameObject* gameItem)
 {
     itemList.insert(0, gameItem);
     QGraphicsScene::addItem(gameItem);
 }
 
+//sets up ship and starts timer
 void ViewPort::startGame()
 {
     Ship* ship = new Ship(BASE_SIZE/2, BASE_SIZE/2, this);
@@ -38,6 +41,7 @@ void ViewPort::startGame()
     cycleTimer->start(33);
 }
 
+//timer event; calls update() on all game objects and (will check) collision
 void ViewPort::doGameTick()
 {
     spawnAsteroid();
@@ -45,6 +49,7 @@ void ViewPort::doGameTick()
     GameObject* object;
     int currSize = itemList.size();
 
+    //destroys game objects when they have flown off screen
     for(int i = 0; i <= currSize-2; i++)
     {
         object = itemList.at(i);
@@ -59,6 +64,7 @@ void ViewPort::doGameTick()
         }
     }
 
+    //special wraping case for ship
     wrapShip();
 }
 
@@ -79,6 +85,8 @@ void ViewPort::wrapShip()
         obj->setY(BASE_SIZE);
 }
 
+//algorithm for spawning asteroids
+//TODO find better algorithm
 void ViewPort::spawnAsteroid()
 {
     if(spawnCooldown == 0)
