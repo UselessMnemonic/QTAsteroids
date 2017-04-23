@@ -1,11 +1,15 @@
 #include "ship.h"
 #include "bullet.h"
 #include "globals.h"
+#include "asteroid.h"
+#include <viewport.h>
 #include <QPainter>
 #include <QKeyEvent>
 #include <QDebug>
 #include <QGraphicsItem>
 #include <QVector2D>
+#include <QList>
+#include <typeinfo>
 
 //Constructor takes location, calls parent constructor, and sets ship defaults
 Ship::Ship(qreal x, qreal y, ViewPort* context) : GameObject(x, y)
@@ -16,6 +20,7 @@ Ship::Ship(qreal x, qreal y, ViewPort* context) : GameObject(x, y)
     bulletCooldown = 0;
     rotation = 270;
     setRotation(rotation);
+    hitState = false;
 }
 
 //draws a ship as defined by the verticies in geometry[]
@@ -78,6 +83,8 @@ void Ship::keyReleaseEvent(QKeyEvent *event)
 
 //update's ship's rotation, velocity, and position,
 // and checks wether or not a bullet may be fired on this frame
+
+//********** next possible place to put collision detection ************/
 void Ship::update()
 {
     //cooldown before next bullet shot
@@ -98,6 +105,20 @@ void Ship::update()
 
     //finally, set position of ship
     setPos(pos() + velocity.toPointF());
+
+    //Collision checking for ship
+    //collidedItems is a Qlist of QGraphicsItem pointers
+    //collidingItems() returns a list of every item (QGraphicsItem *) that has collided
+    QList<QGraphicsItem * > collidedItems = collidingItems();
+    for(int i = 0, n = collidedItems.size(); i<n; i++)
+    {
+        if( typeid( *(collidedItems[i])) == typeid(Asteroid))
+        {
+              static_cast<Asteroid *>(collidedItems[i])->setHitState(true);
+              this->setHitState(true);
+        }
+
+    }
 }
 
 //spawns bullet with ship's rotation and direction

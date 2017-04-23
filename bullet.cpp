@@ -9,6 +9,7 @@ Bullet::Bullet(QPointF loc, int angle) : GameObject(loc)
     rotation = angle;
     setRotation(rotation);
     velocity = QVector2D(degCOS(rotation) * 8, degSIN(rotation) * 8);
+    hitState = false;
 }
 
 //draws a rectangle

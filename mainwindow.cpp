@@ -25,11 +25,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QMenu* gameMenu = menuBar()->addMenu("&Game");
 
     //create open and new actions
-    gameMenu->addAction("&Open", this, SLOT(startGame()));
-    gameMenu->addAction("&Close", this, SLOT(close()));
-
-    //init vars
-    gameStarted = false;
+    gameMenu->addAction("&Start", this, SLOT(startGame()));
+    gameMenu->addAction("&Quit", this, SLOT(close()));
 
 }
 
@@ -40,10 +37,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::startGame()
 {
-    //avoid adding extra ships if the game has started
-    if(!gameStarted)
-    {
-        mainViewport->startGame();
-        gameStarted = true;
-    }
+   mainViewport->startGame();
 }

@@ -15,7 +15,6 @@ public:
 private:
     ViewPort* mainViewport;
     QGraphicsView* view;
-    bool gameStarted;
 
 private slots:
     void startGame();
