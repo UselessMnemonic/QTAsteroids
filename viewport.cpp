@@ -3,9 +3,10 @@
 #include "globals.h"
 #include "asteroid.h"
 #include "time.h"
+#include <QList>
+#include <QGraphicsItem>
 #include <QDebug>
 
-//draws bounding rectangle and creates frame timer
 ViewPort::ViewPort() : QGraphicsScene()
 {
    addLine(0,0,0,1, QPen(Qt::transparent, 1));
@@ -34,6 +35,11 @@ void ViewPort::addItem(GameObject* gameItem)
 //sets up ship and starts timer
 void ViewPort::startGame()
 {
+    for(int i = 0; i <= itemList.size()-1; i++)
+        removeItem(itemList[i]);
+
+    itemList.clear();
+
     Ship* ship = new Ship(BASE_SIZE/2, BASE_SIZE/2, this);
     addItem(ship);
     QGraphicsScene::setFocusItem(ship);
@@ -42,6 +48,11 @@ void ViewPort::startGame()
 }
 
 //timer event; calls update() on all game objects and (will check) collision
+
+//checks if the object in the list is NULL already and deletes it from list if it is.
+//if not then follows regular procedure. If the Object becomes NULL after update()
+//then delete
+/************ Possible place to put collision detection **************/
 void ViewPort::doGameTick()
 {
     spawnAsteroid();
@@ -50,39 +61,62 @@ void ViewPort::doGameTick()
     int currSize = itemList.size();
 
     //destroys game objects when they have flown off screen
+    //The ship is at the end of the itemList, so to avoid deleting the ship
+    //we only traverse the vector up until the element before the ship.
     for(int i = 0; i <= currSize-2; i++)
     {
+        //retrieve the object
         object = itemList.at(i);
+
+        //will do what is relevant for the object at the moment
         object->update();
 
-        if(object->pos().x() > BASE_SIZE || object->pos().x() < 0 || object->pos().y() > BASE_SIZE || object->pos().y() < 0)
+        if(object->getHitState())
         {
             itemList.remove(i);
+            removeItem(object);
             delete object;
             currSize--;
             i--;
+            qDebug()<<"Object was deleted from memory!";
         }
-    }
+        else if(object->pos().x() > BASE_SIZE || object->pos().x() < 0 || object->pos().y() > BASE_SIZE || object->pos().y() < 0)
+        {
+            itemList.remove(i);
+            removeItem(object);
+            delete object;
+            currSize--;
+            i--;
+         }
 
-    //special wraping case for ship
+    }
+    //special wraping case for ship- if it has not been destroyed.
+    //ship should be deleted from memory in wrapship()
     wrapShip();
 }
 
 void ViewPort::wrapShip()
 {
-    GameObject* obj;
-    obj = itemList.at(itemList.size()-1);
-    obj->update();
+    GameObject* ship;
+    ship = itemList.at(itemList.size()-1);
+    ship->update();
 
-    if(obj->x() > BASE_SIZE)
-        obj->setX(0);
-    else if(obj->x() < 0)
-        obj->setX(BASE_SIZE);
+    if(ship->getHitState())
+    {
+        itemList.remove(itemList.size()-1);
+        removeItem(ship);
+        endGame();
+    }
 
-    if(obj->y() > BASE_SIZE)
-        obj->setY(0);
-    else if(obj->y() < 0)
-        obj->setY(BASE_SIZE);
+    if(ship->x() > BASE_SIZE)
+        ship->setX(0);
+    else if(ship->x() < 0)
+        ship->setX(BASE_SIZE);
+
+    if(ship->y() > BASE_SIZE)
+        ship->setY(0);
+    else if(ship->y() < 0)
+        ship->setY(BASE_SIZE);
 }
 
 //algorithm for spawning asteroids
@@ -117,4 +151,9 @@ void ViewPort::spawnAsteroid()
     }
     else
         spawnCooldown--;
+}
+
+void ViewPort::endGame()
+{
+    cycleTimer->stop();
 }

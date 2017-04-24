@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QVector>
 #include <QImage>
+#include <QGraphicsItem>
 #include "gameobject.h"
 
 class ViewPort : public QGraphicsScene
@@ -16,7 +17,11 @@ public:
     ViewPort();
     void startGame();
     void addItem(GameObject*);
+    void endGame();
 
+    /*QRectF boundingRect() const
+    {return QRectF(-4, -2, 4, 2);}
+*/
 private:
     QTimer* cycleTimer;
     QVector<GameObject*> itemList;

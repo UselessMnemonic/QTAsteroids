@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H
 
 #include <QGraphicsItem>
+#include <QList>
 #include <QVector2D>
 
 class GameObject : public QGraphicsItem
@@ -13,8 +14,12 @@ public:
     GameObject(QPointF);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     virtual void update();
+    virtual void setHitState(bool);
+    virtual bool getHitState();
+
 
 protected:
+    bool hitState;
     int rotation;
     QVector2D velocity;
 };
