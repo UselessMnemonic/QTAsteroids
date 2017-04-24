@@ -12,8 +12,10 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+     ViewPort* mainViewport;
+
 private:
-    ViewPort* mainViewport;
     QGraphicsView* view;
 
 private slots:

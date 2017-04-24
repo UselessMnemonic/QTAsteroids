@@ -7,6 +7,7 @@
 #include <QImage>
 #include <QGraphicsItem>
 #include "gameobject.h"
+#include "viewport.h"
 
 class ViewPort : public QGraphicsScene
 {

@@ -2,15 +2,20 @@
 #define ASTEROID_H
 
 #include "gameobject.h"
+#include "viewport.h"
 
 class Asteroid : public GameObject
 {
 public:
-    //constructor
+    //constructors
+    Asteroid(qreal, qreal, QVector2D, int);
     Asteroid(qreal, qreal);
+
+    void split(ViewPort*);
 
     //draws the asteroid
     void paint( QPainter*, const QStyleOptionGraphicsItem*, QWidget* );
+
     QRectF boundingRect() const
     { return QRectF(-size/2, -size/2, size, size); }
 

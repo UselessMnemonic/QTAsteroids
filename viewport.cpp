@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "asteroid.h"
 #include "time.h"
+#include <typeinfo>
 #include <QList>
 #include <QGraphicsItem>
 #include <QDebug>
@@ -75,6 +76,10 @@ void ViewPort::doGameTick()
         {
             itemList.remove(i);
             removeItem(object);
+            if(static_cast<Asteroid *>(object) != NULL)
+            {
+                (static_cast<Asteroid *>(object))->split(this);
+            }
             delete object;
             currSize--;
             i--;

@@ -18,8 +18,8 @@ SOURCES += main.cpp\
     gameobject.cpp \
     bullet.cpp \
     ship.cpp \
-    asteroid.cpp \
-    globals.cpp
+    globals.cpp \
+    asteroid.cpp
 
 HEADERS  += mainwindow.h \
     viewport.h \
