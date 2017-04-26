@@ -74,15 +74,16 @@ void ViewPort::doGameTick()
 
         if(object->getHitState())
         {
+
             itemList.remove(i);
             removeItem(object);
+
             if(static_cast<Asteroid *>(object) != NULL)
             {
-                (static_cast<Asteroid *>(object))->split(this);
+                if ((static_cast<Asteroid *>(object))->split(this))
+                    i++;
             }
             delete object;
-            currSize--;
-            i--;
             qDebug()<<"Object was deleted from memory!";
         }
         else if(object->pos().x() > BASE_SIZE || object->pos().x() < 0 || object->pos().y() > BASE_SIZE || object->pos().y() < 0)
