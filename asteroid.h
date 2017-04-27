@@ -11,7 +11,7 @@ public:
     Asteroid(qreal, qreal, QVector2D, int);
     Asteroid(qreal, qreal);
 
-    void split(ViewPort*);
+    bool split(ViewPort*);
 
     //draws the asteroid
     void paint( QPainter*, const QStyleOptionGraphicsItem*, QWidget* );
