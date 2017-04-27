@@ -59,18 +59,22 @@ void ViewPort::doGameTick()
     spawnAsteroid();
 
     GameObject* object;
-    int currSize = itemList.size();
 
     //destroys game objects when they have flown off screen
     //The ship is at the end of the itemList, so to avoid deleting the ship
     //we only traverse the vector up until the element before the ship.
-    for(int i = 0; i <= currSize-2; i++)
+    for(int i = 0; i <= itemList.size()-2; i++)
     {
         //retrieve the object
         object = itemList.at(i);
 
         //will do what is relevant for the object at the moment
         object->update();
+    }
+
+    for(int i = 0; i <= itemList.size()-2; i++)
+    {
+        object = itemList.at(i);
 
         if(object->getHitState())
         {
@@ -78,12 +82,15 @@ void ViewPort::doGameTick()
             itemList.remove(i);
             removeItem(object);
 
-            if(static_cast<Asteroid *>(object) != NULL)
+            if(typeid(*object) == typeid(Asteroid))
             {
                 if ((static_cast<Asteroid *>(object))->split(this))
-                    i++;
+                {
+                    i+=2;
+                }
             }
             delete object;
+            i--;
             qDebug()<<"Object was deleted from memory!";
         }
         else if(object->pos().x() > BASE_SIZE || object->pos().x() < 0 || object->pos().y() > BASE_SIZE || object->pos().y() < 0)
@@ -91,11 +98,10 @@ void ViewPort::doGameTick()
             itemList.remove(i);
             removeItem(object);
             delete object;
-            currSize--;
             i--;
          }
-
     }
+
     //special wraping case for ship- if it has not been destroyed.
     //ship should be deleted from memory in wrapship()
     wrapShip();

@@ -10,14 +10,14 @@ Asteroid::Asteroid(qreal x, qreal y) : GameObject(x, y)
     size = rand() % 3 + 1;
     size *= 12;
     srand(time(NULL));
-    int angle = rand()%360;
+    rotation = rand()%360;
     float speed = 10.0/size;
-    velocity = QVector2D(degCOS(angle) * speed, degSIN(angle) * speed);
-    setRotation(angle);
+    velocity = QVector2D(degCOS(rotation) * speed, degSIN(rotation) * speed);
+    setRotation(rotation);
     hitState = false;
 }
 
-Asteroid::Asteroid(qreal x, qreal y, QVector2D vel, int size)
+Asteroid::Asteroid(qreal x, qreal y, QVector2D vel, int newSize) : GameObject(x, y)
 {
     srand(time(NULL));
     int angle = rand()%360;
@@ -25,28 +25,28 @@ Asteroid::Asteroid(qreal x, qreal y, QVector2D vel, int size)
     setRotation(rotation);
     hitState = false;
     velocity = vel;
-    this->size = size;
+    size = newSize;
 }
 
 bool Asteroid::split(ViewPort* window)
 {
-    qDebug() << "Size: " << size;
-    bool spl = (size / 12) > 1;
-    if(spl)
+    qDebug() << "Size: " << this->size;
+    int newSize = size/2;
+
+    if(newSize >= 12)
     {
-        float speed = 10.0/size;
+        float newSpeed = 10.0/newSize;
+        int newRotation = rotation += 90;
 
-        rotation += 90;
+        if(newRotation < 0)
+            newRotation += 360;
+        else if (newRotation >= 360)
+            newRotation -= 360;
 
-        if(rotation < 0)
-            rotation = 360+rotation;
-        else if (rotation > 360)
-            rotation -= 360;
+        QVector2D newVelocity = QVector2D(degCOS(newRotation) * newSpeed, degSIN(newRotation) * newSpeed);
 
-        velocity = QVector2D(degCOS(rotation) * speed, degSIN(rotation) * speed);
-
-        Asteroid* A = new Asteroid(x()+2,  y()+2, -velocity/2, size-12);
-        Asteroid* B = new Asteroid(x()-2, y()-2, velocity/2, size-12);
+        Asteroid* A = new Asteroid(x()+(newSize/2),  y()+(newSize/2), newVelocity/2, newSize);
+        Asteroid* B = new Asteroid(x()-(newSize/2), y()-(newSize/2), -newVelocity/2, newSize);
 
         window->addItem(A);
         window->addItem(B);
@@ -54,7 +54,7 @@ bool Asteroid::split(ViewPort* window)
         qDebug() << "SPLIT!";
     }
 
-    return spl;
+    return newSize >= 12;
 }
 
 //draws a red circle
