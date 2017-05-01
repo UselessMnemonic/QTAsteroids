@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QtMath>
 #include <QDebug>
+#include <QScreen>
 #include <string>
 
 /* Aryan Khachikian
@@ -31,6 +32,16 @@ int main(int argc, char *argv[])
     }
 
     QApplication a(argc, argv);
+
+    QSize size = qApp->screens()[0]->size();;
+    int height = size.height();
+    int width = size.width();
+
+    if(height > width)
+        BASE_SIZE = width;
+    else
+        BASE_SIZE = height;
+
     MainWindow w;
     w.show();
     return a.exec();

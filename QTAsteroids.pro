@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     bullet.cpp \
     ship.cpp \
     globals.cpp \
-    asteroid.cpp
+    asteroid.cpp \
+    prize.cpp
 
 HEADERS  += mainwindow.h \
     viewport.h \
@@ -27,4 +28,5 @@ HEADERS  += mainwindow.h \
     gameobject.h \
     bullet.h \
     ship.h \
-    asteroid.h
+    asteroid.h \
+    prize.h

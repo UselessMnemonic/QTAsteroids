@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "asteroid.h"
 #include "time.h"
+#include "prize.h"
 #include <typeinfo>
 #include <QList>
 #include <QGraphicsItem>
@@ -88,7 +89,21 @@ void ViewPort::doGameTick()
                 {
                     i+=2;
                 }
+                else
+                {
+                    //int chance = rand() % 10;
+                    int chance = 1;
+                    if(chance == 1)
+                        addItem(new Prize(object->pos()));
+                    i++;
+                }
             }
+
+            else if(typeid(*object) == typeid(Prize))
+            {
+                //logic to increase score
+            }
+
             delete object;
             i--;
             qDebug()<<"Object was deleted from memory!";
@@ -142,7 +157,7 @@ void ViewPort::spawnAsteroid()
             int tb, x, y;
             tb = rand() % 2;
 
-            if(tb)
+            if(tb == 1)
             {
               y = rand() % 2;
               y *= BASE_SIZE;

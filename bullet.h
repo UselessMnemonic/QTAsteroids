@@ -14,13 +14,6 @@ public:
     void paint( QPainter*, const QStyleOptionGraphicsItem*, QWidget* );
     QRectF boundingRect() const
     { return QRectF(-4,-2,4,2); }
-/*
-    void setHitState(bool);
-    bool getHitState();
-
- private:
-    bool hitState;
-*/
 
 
 

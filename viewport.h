@@ -30,6 +30,7 @@ private:
     void spawnAsteroid();
     int spawnCooldown;
 
+
 public slots:
     void doGameTick();
 };

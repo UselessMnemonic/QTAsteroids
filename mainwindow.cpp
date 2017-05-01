@@ -6,6 +6,7 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+#include <QApplication>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -16,11 +17,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     view->setFrameStyle(0);
     view->setFixedSize(BASE_SIZE, BASE_SIZE);
+    view->setSceneRect(0, 0, BASE_SIZE, BASE_SIZE);
+
     setCentralWidget(view);
 
     //make window fixed size
     setFixedSize(BASE_SIZE, BASE_SIZE);
 
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt:: ScrollBarAlwaysOff);
     //create game menu
     QMenu* gameMenu = menuBar()->addMenu("&Game");
 
