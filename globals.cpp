@@ -3,7 +3,7 @@
 int BASE_SIZE = 600;
 int PADDING = 5;
 
-bool SHOW_BOUNDS = true;
+bool SHOW_BOUNDS = false;
 bool SHOW_TRAJECTORIES = false;
 
 float SINES[359];

@@ -8,7 +8,7 @@ class Asteroid : public GameObject
 {
 public:
     //constructors
-    Asteroid(qreal, qreal, QVector2D, int);
+    Asteroid(qreal, qreal, QVector2D, int, int);
     Asteroid(qreal, qreal);
 
     bool split(ViewPort*);
@@ -18,6 +18,8 @@ public:
 
     QRectF boundingRect() const
     { return QRectF(-size/2, -size/2, size, size); }
+
+    int getSize();
 
 private:
     // size of the asteroid defined by values 1-3

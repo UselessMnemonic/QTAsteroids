@@ -19,6 +19,8 @@ public:
     void update();
 
     //add logic to provide power ups
+private:
+    float t;
 
 };
 

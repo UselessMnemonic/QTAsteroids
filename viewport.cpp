@@ -14,7 +14,11 @@ ViewPort::ViewPort() : QGraphicsScene()
    addLine(0,0,0,1, QPen(Qt::transparent, 1));
 
     if(SHOW_BOUNDS)
+    {
         addRect(0,0,BASE_SIZE,BASE_SIZE, QPen(Qt::blue));
+        addLine(0, BASE_SIZE/2, BASE_SIZE, BASE_SIZE/2, QPen(Qt::blue));
+        addLine(BASE_SIZE/2, 0, BASE_SIZE/2, BASE_SIZE, QPen(Qt::blue));
+    }
 
     setBackgroundBrush(QBrush(Qt::black));
 
@@ -22,9 +26,13 @@ ViewPort::ViewPort() : QGraphicsScene()
     cycleTimer = new QTimer(this);
     connect(cycleTimer, SIGNAL(timeout()), this, SLOT(doGameTick()));
     spawnCooldown = 0;
+
   /* for(int r = 0, s = 500; r < 10; r++, s-=2)
         addRect(r, r, s, s, QPen(QColor(10*(10-r), 0, 0)), QBrush(1));
         */
+
+    scoreBoard = new Score();
+    addItem(scoreBoard);
 }
 
 //adds a GameObject into the scene and object list
@@ -34,9 +42,15 @@ void ViewPort::addItem(GameObject* gameItem)
     QGraphicsScene::addItem(gameItem);
 }
 
+void ViewPort::addItem(QGraphicsItem* item)
+{
+    QGraphicsScene::addItem(item);
+}
+
 //sets up ship and starts timer
 void ViewPort::startGame()
 {
+    scoreBoard->clear();
     for(int i = 0; i <= itemList.size()-1; i++)
         removeItem(itemList[i]);
 
@@ -57,8 +71,7 @@ void ViewPort::startGame()
 /************ Possible place to put collision detection **************/
 void ViewPort::doGameTick()
 {
-    spawnAsteroid();
-
+    spawnAsteroid();   
     GameObject* object;
 
     //destroys game objects when they have flown off screen
@@ -74,34 +87,34 @@ void ViewPort::doGameTick()
     }
 
     for(int i = 0; i <= itemList.size()-2; i++)
-    {
+    { //for all items
         object = itemList.at(i);
 
         if(object->getHitState())
-        {
+        {//check if they need to be destroyed
 
             itemList.remove(i);
             removeItem(object);
 
             if(typeid(*object) == typeid(Asteroid))
-            {
+            {//asteroids may split and also provide points
                 if ((static_cast<Asteroid *>(object))->split(this))
                 {
                     i+=2;
                 }
                 else
                 {
-                    //int chance = rand() % 10;
-                    int chance = 1;
+                    int chance = rand() % 5;
                     if(chance == 1)
                         addItem(new Prize(object->pos()));
                     i++;
                 }
+                scoreBoard->increase((static_cast<Asteroid *>(object))->getSize());
             }
 
             else if(typeid(*object) == typeid(Prize))
-            {
-                //logic to increase score
+            {//prizes provide points
+                scoreBoard->increase(100);
             }
 
             delete object;
@@ -157,7 +170,7 @@ void ViewPort::spawnAsteroid()
             int tb, x, y;
             tb = rand() % 2;
 
-            if(tb == 1)
+            if(tb)
             {
               y = rand() % 2;
               y *= BASE_SIZE;

@@ -38,9 +38,9 @@ int main(int argc, char *argv[])
     int width = size.width();
 
     if(height > width)
-        BASE_SIZE = width;
+        BASE_SIZE = width-100;
     else
-        BASE_SIZE = height;
+        BASE_SIZE = height-100;
 
     MainWindow w;
     w.show();

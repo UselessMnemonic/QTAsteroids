@@ -8,6 +8,7 @@
 #include <QGraphicsItem>
 #include "gameobject.h"
 #include "viewport.h"
+#include "score.h"
 
 class ViewPort : public QGraphicsScene
 {
@@ -18,6 +19,7 @@ public:
     ViewPort();
     void startGame();
     void addItem(GameObject*);
+    void addItem(QGraphicsItem*);
     void endGame();
 
     /*QRectF boundingRect() const
@@ -29,6 +31,7 @@ private:
     void wrapShip();
     void spawnAsteroid();
     int spawnCooldown;
+    Score* scoreBoard;
 
 
 public slots:
